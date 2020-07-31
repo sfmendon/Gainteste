@@ -1,0 +1,35 @@
+<div class="mat-elevation-z8 componentPadrao" fxFlexAlign="row">
+
+
+  <div fxLayout="row">
+    <h2 class="titleh2" >
+      IMPORTAÇÃO DE ARQUIVOS
+    </h2>
+    <small>Importação dos arquivos contendo as ordens para análise o ordenação de operações</small>
+  </div>
+
+
+
+  <div fxLayout="row">
+    <!-- in app.component.html -->
+    <ngx-dropzone
+      [accept]="'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.txt,.csv'"
+      [multiple]="true" (change)="onSelect($event)">
+      <ngx-dropzone-label>Arraste ou clique para enviar o(s) arquivo(s)!</ngx-dropzone-label>
+      <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+      </ngx-dropzone-preview>
+    </ngx-dropzone>
+  </div>
+
+  <div fxLayout="row">
+    <a (click)="analisarArquivos()">Analisar</a>
+  </div>
+
+  <br/>
+
+  <div *ngIf="ordensImportadas && ordensImportadas.length > 0" class="row">
+    <app-resumoOrdensCorretora [ordensCorretora]="ordensImportadas"></app-resumoOrdensCorretora>
+  </div>
+
+</div>
